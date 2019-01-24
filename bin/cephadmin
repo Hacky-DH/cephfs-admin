@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e
+py=$(which python2 2>/dev/null)
+py=${py:-python}
+install_path=@CEPH_ADMIN_HOME@
+[[ ! -d ${install_path} ]] && install_path="."
+export CEPH_ADMIN_HOME=${install_path}
+export CEPH_ADMIN_VERSION=@CEPH_ADMIN_VERSION@
+export LD_LIBRARY_PATH=${install_path}/lib:$LD_LIBRARY_PATH
+$py ${install_path}/py-packages/ceph_admin.py -c ${install_path}/conf/admin.info $*
